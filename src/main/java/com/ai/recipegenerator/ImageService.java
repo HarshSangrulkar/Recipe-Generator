@@ -1,6 +1,6 @@
 package com.ai.recipegenerator;
 
-import org.springframework.ai.image.ImageModel;
+//import org.springframework.ai.image.ImageModel;
 import org.springframework.ai.image.ImagePrompt;
 import org.springframework.ai.image.ImageResponse;
 import org.springframework.ai.openai.OpenAiImageModel;
@@ -22,8 +22,9 @@ public class ImageService {
         ImageResponse imageResponse = openAiImageModel.call(
                 new ImagePrompt(prompt,
                         OpenAiImageOptions.builder()
+                                .withModel("dall-e-2")
                                 .withQuality("hd")
-                                .withN(1)
+                                .withN(3)
                                 .withHeight(1024)
                                 .withWidth(1024).build()));
         return imageResponse;

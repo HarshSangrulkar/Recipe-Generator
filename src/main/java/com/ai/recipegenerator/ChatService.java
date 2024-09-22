@@ -18,14 +18,26 @@ public class ChatService {
         return chatModel.call(prompt);
     }
 
+    // public String getResponseOptions(String prompt) {
+    // ChatResponse response = chatModel.call(
+    // new Prompt(
+    // prompt,
+    // OpenAiChatOptions.builder()
+    // .withModel("gpt-3.5-turbo")
+    // .withTemperature((float) 0.4)
+    // .build()));
+    // return response.getResult().getOutput().getContent();
+    // }
     public String getResponseOptions(String prompt) {
-        ChatResponse response = chatModel.call(
-                new Prompt(
-                        prompt,
-                        OpenAiChatOptions.builder()
-                                .withModel("gpt-4o")
-                                .withTemperature((float) 0.4)
-                                .build()));
+        OpenAiChatOptions options = OpenAiChatOptions.builder()
+                .withModel("gpt-3.5-turbo")
+                .withTemperature((float) 0.4)
+                .build();
+
+        System.out.println("Model being used: " + options.getModel()); // Add this logging
+        ChatResponse response = chatModel.call(new Prompt(prompt, options));
+
         return response.getResult().getOutput().getContent();
     }
+
 }

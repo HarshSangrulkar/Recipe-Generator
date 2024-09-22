@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.ai.image.ImageResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,10 +32,23 @@ public class GenAIController {
         return chatService.getResponseOptions(prompt);
     }
 
+    // @GetMapping("generate-image")
+    // public void generateImages(HttpServletResponse response, @RequestParam String
+    // prompt) throws IOException {
+    // ImageResponse imageResponse = imageService.generImage(prompt);
+    // String imageUrl = imageResponse.getResult().getOutput().getUrl();
+    // response.sendRedirect(imageUrl);
+    // }
+
     @GetMapping("generate-image")
-    public void generateImages(HttpServletResponse response, @RequestParam String prompt) throws IOException {
+    public List<String> generateImages(HttpServletResponse response,
+            @RequestParam String prompt) throws IOException {
         ImageResponse imageResponse = imageService.generImage(prompt);
-        String imageUrl = imageResponse.getResult().getOutput().getUrl();
-        response.sendRedirect(imageUrl);
+
+        // Streams to get url's from ImageResponse
+        List<String> imageUrls = imageResponse.getResults().stream()
+                .map(result -> result.getOutput().getUrl())
+                .collect(Collectors.toList());
+        return imageUrls;
     }
 }
