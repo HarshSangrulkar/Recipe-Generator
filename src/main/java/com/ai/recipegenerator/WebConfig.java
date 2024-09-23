@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**") // Allow CORS for all API routes
                 .allowedOrigins("http://localhost:3000") // Frontend URL
-                .allowedMethods("GET", "POST", "PUT", "DELETE") // Allowed methods
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allowed methods
                 .allowedHeaders("*") // Allow any headers
                 .allowCredentials(true); // Allow credentials like cookies or auth headers
     }
