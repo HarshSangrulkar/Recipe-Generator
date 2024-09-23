@@ -15,18 +15,27 @@ public class ImageService {
         this.openAiImageModel = openAiImageModel;
     }
 
-    public ImageResponse generImage(String prompt) {
+    public ImageResponse generImage(String prompt, String quality, int n, int width, int height) {
         // ImageResponse imageResponse = openAiImageModel.call(
         // new ImagePrompt(prompt));
+
+        // ImageResponse imageResponse = openAiImageModel.call(
+        // new ImagePrompt(prompt,
+        // OpenAiImageOptions.builder()
+        // .withModel("dall-e-2")
+        // .withQuality("hd")
+        // .withN(3)
+        // .withHeight(1024)
+        // .withWidth(1024).build()));
 
         ImageResponse imageResponse = openAiImageModel.call(
                 new ImagePrompt(prompt,
                         OpenAiImageOptions.builder()
                                 .withModel("dall-e-2")
-                                .withQuality("hd")
-                                .withN(3)
-                                .withHeight(1024)
-                                .withWidth(1024).build()));
+                                .withQuality(quality)
+                                .withN(n)
+                                .withHeight(width)
+                                .withWidth(height).build()));
         return imageResponse;
     }
 }
